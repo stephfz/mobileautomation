@@ -1,0 +1,63 @@
+import os
+import unittest
+from appium import webdriver
+import time
+
+# Returns abs path relative to this file and not cwd
+PATH = lambda p: os.path.abspath(
+    os.path.join(os.path.dirname(__file__), p)
+)
+
+class ContactsAndroidTests(unittest.TestCase):
+    def setUp(self):
+        desired_caps = {}
+        desired_caps['platformName'] = 'Android'
+        desired_caps['platformVersion'] = '4.2'
+        desired_caps['deviceName'] = 'StephGalaxy'
+        desired_caps['appPackage'] = 'com.smarteragent.android.c21'
+	desired_caps['appActivity'] = 'com.smarteragent.android.AppLauncher'
+        self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+
+    def tearDown(self):
+        self.driver.quit()
+	#print "j"
+
+    def test_add_contacts(self):
+	time.sleep(15)
+	
+
+	#el = self.driver.find_element_by_android_uiautomator('new UiSelector().resourceId("com.smarteragent.android.c21:id/addressField")')
+	"el = self.driver.find_element_by_android_uiautomator('new UiSelector().resourceId("com.smarteragent.android.c21:id/addressField")')
+	elements = self.driver.find_elements_by_class_name("android.widget.ListView")	
+	print len(elements)
+	#el.send_keys("a")
+
+	#el = self.driver.find_element_by_android_uiautomator('new UiSelector().resourceId("com.smarteragent.android.c21:id/AddrField")')
+	#Agent/Office
+	#el = self.driver.find_element_by_android_uiautomator('new UiSelector().resourceId("com.smarteragent.android.c21:id/fName")')
+	#print el.text
+
+			
+	
+	'''
+	#AdvancedSearch	
+	el = self.driver.find_element_by_android_uiautomator('new UiSelector().resourceId("com.smarteragent.android.c21:id/AddrField")')
+	print el.text
+	el.clear
+	el.send_keys("98765")		
+	'''
+
+	#el = self.driver.find_element_by_android_uiautomator('new UiSelector().resourceId("com.smarteragent.android.c21:id/propImage")')
+	#el.click()
+	
+	'''
+	el = self.driver.find_element_by_android_uiautomator('new UiSelector().resourceId("com.smarteragent.android.c21:id/voiceReco")')
+ 	el.click()
+	time.sleep(10)
+	'''
+
+
+
+if __name__ == '__main__':
+    suite = unittest.TestLoader().loadTestsFromTestCase(ContactsAndroidTests)
+    unittest.TextTestRunner(verbosity=2).run(suite)
